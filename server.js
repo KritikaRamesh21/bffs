@@ -3,11 +3,22 @@ const url = require('url');
 
 const userId = "john_doe_17091999";
 const email = "john@xyz.com";
-const rollNumber = "21BCE5199";
+const rollNumber = "ABCD123";
 
 const server = http.createServer((req, res) => {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     const parsedUrl = url.parse(req.url, true);
     const method = req.method;
+
+    if (method === 'OPTIONS') {
+        res.writeHead(204);
+        res.end();
+        return;
+    }
 
     if (parsedUrl.pathname === '/bfhl' && method === 'POST') {
         let body = '';
